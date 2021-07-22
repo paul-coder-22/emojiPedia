@@ -3,9 +3,9 @@ import "./styles.css";
 
 let emojiArr = {
   smile: "😊",
-  Excited: "🤩",
-  Love: "💗",
-  Sad: "😪",
+  excited: "🤩",
+  love: "💗",
+  sad: "😪",
   cash: "💸"
 };
 export default function App() {
@@ -19,16 +19,16 @@ export default function App() {
 
   function checkName(event) {
     const textValue = event.target.value;
-    console.log(textValue);
     Object.entries(emojiArr).filter((e) => {
+      console.log(e[0] === textValue);
       return e[0] === textValue
         ? emojiFind(textValue + " exist in the database")
         : emojiFind("We don't have your search emoji!");
     });
   }
-  /*   function getkey(event) {
+  function getkey(event) {
     emojiFind(event.target.id);
-  } */
+  }
   return (
     <div className="App">
       <input onChange={handler} value={name} onKeyUp={checkName} />
@@ -41,7 +41,7 @@ export default function App() {
 
       {Object.entries(emojiArr).map((element, key) => (
         <span
-          // onClick={getkey}
+          onClick={getkey}
           id={element[0]}
           key={key}
           style={{ margin: "4%", fontSize: "200%", cursor: "pointer" }}
