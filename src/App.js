@@ -10,26 +10,38 @@ let emojiArr = {
 };
 export default function App() {
   const [name, changeName] = useState("");
-  const [emoji, emojiFind] = useState("");
+  const [emoji, emojiFind] = useState("Check your emoji exist or not");
 
   function handler(event) {
-    const { value } = event.target;
-    changeName(value);
+    const text1 = event.target.value;
+    changeName(text1);
   }
-  function getkey(event) {
+
+  function checkName(event) {
+    const textValue = event.target.value;
+    console.log(textValue);
+    Object.entries(emojiArr).filter((e) => {
+      return e[0] === textValue
+        ? emojiFind(textValue + " exist in the database")
+        : emojiFind("We don't have your search emoji!");
+    });
+  }
+  /*   function getkey(event) {
     emojiFind(event.target.id);
-  }
+  } */
   return (
     <div className="App">
-      <input onChange={handler} value={name} />
+      <input onChange={handler} value={name} onKeyUp={checkName} />
       <br></br>
       <div style={{ textAlign: "center" }}>
+        <strong>{name}</strong>
+        <hr></hr>
         <strong>{emoji}</strong>
       </div>
 
       {Object.entries(emojiArr).map((element, key) => (
         <span
-          onClick={getkey}
+          // onClick={getkey}
           id={element[0]}
           key={key}
           style={{ margin: "4%", fontSize: "200%", cursor: "pointer" }}
@@ -37,7 +49,6 @@ export default function App() {
           {element[1]}
         </span>
       ))}
-      {/* {arr.map(v => <p>{v}</p>)} */}
     </div>
   );
 }
