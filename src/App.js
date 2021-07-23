@@ -33,7 +33,7 @@ export default function App() {
     <div className="App">
       <input onChange={handler} value={name} onKeyUp={checkName} />
       <br></br>
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", color: "#fff" }}>
         <strong>{name}</strong>
         <hr></hr>
         <strong>{emoji}</strong>
