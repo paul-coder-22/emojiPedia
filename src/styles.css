@@ -1,7 +1,19 @@
 .App {
-  font-family: sans-serif;
   text-align: center;
 }
+
 body {
   color: white;
+  font-family: cursive;
+}
+.inputElement {
+  width: 40%;
+  font-size: 1.8rem;
+  height: 2.4rem;
+}
+input {
+  height: 1rem;
+}
+strong {
+  font-size: 1.5rem;
 }

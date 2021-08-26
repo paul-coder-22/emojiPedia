@@ -1,50 +1,84 @@
 import { useState } from "react";
+import EmojiListed from "./emojiRender";
 import "./styles.css";
 
 let emojiArr = {
+  "": "Choose Your Emoji",
   "😊": "smile",
   "🤩": "excited",
   "💗": "love",
   "😪": "sad",
-  "💸": "cash"
+  "💸": "cash",
+  "😜": "funny",
+  "🍔": "burger",
+  "🍟": "French Fries",
+  "🌮": "taco",
+  "🍜": "steaming Bowl",
+  "♨️": "Hot Springs",
+  "✨": "sparkel",
+  "❤️‍🔥": "Heart on Fire",
+  "🚅": "bullet-train",
+  "🚗": "car",
+  "✈️": "airplane"
 };
 export default function App() {
   const [name, changeName] = useState("");
   const [emoji, emojiFind] = useState("Check your emoji exist or not");
 
   function handler(event) {
-    const text1 = event.target.value;
-    changeName(text1);
+    const inputEmoji = event.target.value;
+    changeName(inputEmoji);
+
+    const emojiObject = Object.entries(emojiArr).filter((item) =>
+      item[0].includes(inputEmoji)
+    );
+    if (emojiObject.length === 0) {
+      emojiFind("Not available in the database");
+    } else {
+      emojiFind(emojiObject.flat()[1]);
+    }
   }
 
-  function checkName(event) {
-    const textValue = event.target.value;
-    /*     Object.entries(emojiArr).find((e) => {
-      console.log(e[1] === textValue);
-      return e[1] === textValue
-        ? emojiFind(textValue + " exist in the list")
-        : emojiFind("We don't have your search emoji!");
-    }); */
-    const item = Object.entries(emojiArr).filter((item) =>
-      item[1].includes(textValue)
+  /*   function checkName(event) {
+    const userEmoji = event.target.value;
+    const emojiObject = Object.entries(emojiArr).filter((item) =>
+      item[0].includes(userEmoji)
     );
-    [...item].map((e, k) => emojiFind(e[k]));
-  }
-  function getkey(event) {
+    if (emojiObject.length === 0) {
+      emojiFind("Not available in the database");
+    } else {
+      emojiFind(emojiObject.flat()[1]);
+    }
+  } */
+
+  function getkeyOfEmoji(event) {
     emojiFind(event.target.id);
   }
+
   return (
     <div className="App">
-      <h2>EmojiPedia</h2>
-      <input onChange={handler} value={name} onKeyUp={checkName} />
+      <h2>🧀 Emoji-Pedia 🍔</h2>
+      <h3>Enter Emoji or Choose any Emoji below to know Emoji namee</h3>
+      <input
+        onChange={handler}
+        value={name}
+        className="inputElement"
+        placeholder="Search Here"
+      />
       <br></br>
       <div style={{ textAlign: "center", color: "#fff" }}>
         <strong>{name}</strong>
         <hr></hr>
-        <strong>{emoji}</strong>
+
+        <strong style={{ color: "red" }}>{emoji}</strong>
       </div>
 
-      {Object.entries(emojiArr).map((element, key) => (
+      <EmojiListed arrOfEmoji={emojiArr} onClickEvent={getkeyOfEmoji} />
+    </div>
+  );
+}
+
+/*  {Object.entries(emojiArr).map((element, key) => (
         <span
           onClick={getkey}
           id={element[1]}
@@ -53,7 +87,4 @@ export default function App() {
         >
           {element[0]}
         </span>
-      ))}
-    </div>
-  );
-}
+      ))} */
